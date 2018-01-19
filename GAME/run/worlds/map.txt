@@ -1,0 +1,14 @@
+:TILE ST_WALL ; stone_wall ; true ; 1
+
+:MOD RPG_TEST_MOD
+
+:CREATE ST_WALL ; 0 ; -1
+:CREATE ST_WALL ; 1 ; 0
+:CREATE ST_WALL ; -1 ; 0
+:CREATE ST_WALL ; 0 ; -2
+:CREATE ST_WALL ; 0 ; 0
+:CREATE ST_WALL ; 0 ; 3
+
+:DOOR 2 ; 0
+
+:CREATE ST_WALL ; 3 ; 0
