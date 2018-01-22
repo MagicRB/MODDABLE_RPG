@@ -8,6 +8,7 @@ class gameObject
 {
     public:
         sf::Vector2i position;
+        std::string tag;
 
         virtual sf::FloatRect getBounds() = 0;
         virtual void render(sf::RenderWindow* Window) = 0;
