@@ -60,5 +60,9 @@ int main()
 		Window.display();
 	}
 
+	Window.close();
+
+	mm.closeAllMods();
+
 	return 0;
 }

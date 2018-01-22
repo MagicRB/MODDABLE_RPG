@@ -23,6 +23,14 @@ private:
     std::vector<func> event_vector;
 };
 
+struct mod_info {
+public:
+    const char* internal_name;
+    const char* display_name;
+    int version_major;
+    int version_minor;
+};
+
 class modAPI
 {
     public:
