@@ -46,7 +46,7 @@ void modManager::closeAllMods()
         //dlclose(it->second);
     }
 
-    dlclose(mods.at("MAIN"));
+    //dlclose(mods.at("MAIN"));
 
     mods.erase(mods.begin(), mods.end());
 }
