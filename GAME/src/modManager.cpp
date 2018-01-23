@@ -11,7 +11,7 @@ void modManager::loadMod(std::string mod_name, std::string path, modAPI* mapi)
 
 #if WIN32
     mod = dlopen((path + mod_name + ".dll").c_str(), RTLD_LAZY);
-#elif UNIX
+#elif __linux__
     mod = dlopen((path + mod_name + ".so").c_str(), RTLD_LAZY);
 #endif
     char* error = dlerror();

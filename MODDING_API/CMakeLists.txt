@@ -14,7 +14,7 @@ endif(WIN32)
 
 file(GLOB SOURCES "src/*.cpp" "include/*.hpp" "../GAME/include/*.hpp")
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../../GAME/link)
+#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../../GAME/link)
 
 add_library(MODDING_API SHARED ${SOURCES})
 
@@ -24,4 +24,5 @@ elseif(UNIX)
 	target_link_libraries(MODDING_API sfml-window sfml-graphics sfml-system)
 endif(WIN32)
 
-ADD_CUSTOM_COMMAND(TARGET MODDING_API POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ../../GAME/link/libMODDING_API.dll ../../GAME/run/)
+ADD_CUSTOM_COMMAND(TARGET MODDING_API POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy libMODDING_API.* ../../GAME/link/)
+ADD_CUSTOM_COMMAND(TARGET MODDING_API POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy ../../GAME/link/libMODDING_API.* ../../GAME/run/)

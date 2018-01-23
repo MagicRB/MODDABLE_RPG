@@ -18,7 +18,7 @@ endif(WIN32)
 
 file(GLOB SOURCES "src/*.cpp" "include/*.h" "include/*.hpp" "../../MODDING_API/include/*.hpp" "../../GAME/include/*.hpp")
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../../GAME/run/Mods)
+#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../../GAME/run/Mods)
 
 add_library(MAIN SHARED ${SOURCES})
 
@@ -27,3 +27,5 @@ if(WIN32)
 elseif(UNIX)
 	target_link_libraries(MAIN sfml-window sfml-graphics sfml-system MODDING_API)
 endif(WIN32)
+
+ADD_CUSTOM_COMMAND(TARGET MAIN POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy libMAIN.* ../../GAME/run/Mods)
