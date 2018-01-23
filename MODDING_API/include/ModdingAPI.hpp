@@ -9,7 +9,7 @@
 #include "goManager.hpp"
 
 template <class func>
-struct event_handle {
+struct event_handler {
 public:
     void add_event(func f)
     {
@@ -23,6 +23,21 @@ private:
     std::vector<func> event_vector;
 };
 
+template <class ref>
+struct reference_holder {
+public:
+    void set(ref reference)
+    {
+        storage = reference;
+    }
+    ref get()
+    {
+        return storage;
+    }
+private:
+    ref storage;
+};
+
 struct mod_info {
 public:
     const char* internal_name;
@@ -34,23 +49,15 @@ public:
 class modAPI
 {
     public:
-        TextureManager*                             grtTexm();
-        void                                        sroTexm(TextureManager* rtexm);
-        goManager*                                  grtGom();
-        void                                        sroGom(goManager* rtexm);
-        sf::RenderWindow*                           grtWindow();
-        void                                        sroWindow(sf::RenderWindow* window);
-        sf::View*                                   grtView();
-        void                                        sroView(sf::View* view);
+        reference_holder<TextureManager*> textureManager;
+        reference_holder<sf::RenderWindow*> window;
+        reference_holder<goManager*> gameObjectManager;
+        reference_holder<sf::View*> view;
+        reference_holder<sf::Event*> event;
+        reference_holder<std::function<void(modAPI*, sf::Event)>> control_override;
 
-        sf::Event*                                  grtEvent();
-        void                                        sroEvent(sf::Event* event);
-
-        void                                        sorControl(std::function<void(modAPI*, sf::Event)> mcorapix);
-        std::function<void(modAPI*, sf::Event)>     gorControl();
-
-        event_handle<std::function<void(modAPI*, std::string)>> worldFileEntryE;
-        event_handle<std::function<void(modAPI*)>> inputE;
+        event_handler<std::function<void(modAPI*, std::string)>> worldFileEntryE;
+        event_handler<std::function<void(modAPI*)>> inputE;
 
         int windowScale = 2;
 
@@ -61,12 +68,6 @@ class modAPI
     protected:
 
     private:
-
-        TextureManager*         ptexm;
-        goManager*              pgom;
-        sf::RenderWindow*       pwindow;
-        sf::View*               pview;
-        sf::Event*              pevent;
 
         std::function<void(modAPI*, sf::Event)> overrideControl;
 

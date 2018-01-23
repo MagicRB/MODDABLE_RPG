@@ -24,9 +24,9 @@ sf::FloatRect player::getBounds()
 
 void player::updatePosition(modAPI* mAPI)
 {
-    mAPI->grtView()->setCenter(sf::Vector2f(position.x, position.y));
+    mAPI->view.get()->setCenter(sf::Vector2f(position.x, position.y));
     setPosition(position.x, position.y);
-    mAPI->grtWindow()->setView(*mAPI->grtView());
+    mAPI->window.get()->setView(*mAPI->view.get());
 }
 
 void player::movement(modAPI* mAPI)
@@ -37,19 +37,19 @@ void player::movement(modAPI* mAPI)
         int movement_increment_current;
         position.y -= movement_increment;
         updatePosition(mAPI);
-        for (int i = 0; i < mAPI->grtGom()->go_vector.size(); i++) {
-            if (mAPI->grtGom()->go_vector.at(i).get() != this)
+        for (int i = 0; i < mAPI->gameObjectManager.get()->go_vector.size(); i++) {
+            if (mAPI->gameObjectManager.get()->go_vector.at(i).get() != this)
             {
-                found = mAPI->grtGom()->go_vector.at(i)->getBounds().intersects(getGlobalBounds());
+                found = mAPI->gameObjectManager.get()->go_vector.at(i)->getBounds().intersects(getGlobalBounds());
                 if (found)
                 {
-                    collide = mAPI->grtGom()->go_vector.at(i)->collide(this);
+                    collide = mAPI->gameObjectManager.get()->go_vector.at(i)->collide(this);
                     if (collide) {
                         position.y += movement_increment;
 
                         updatePosition(mAPI);
 
-                        movement_increment_current = this->getBounds().top - (mAPI->grtGom()->go_vector.at(i)->getBounds().top + mAPI->grtGom()->go_vector.at(i)->getBounds().height);
+                        movement_increment_current = this->getBounds().top - (mAPI->gameObjectManager.get()->go_vector.at(i)->getBounds().top + mAPI->gameObjectManager.get()->go_vector.at(i)->getBounds().height);
 
                         position.y -= movement_increment_current;
                     }
@@ -62,20 +62,20 @@ void player::movement(modAPI* mAPI)
         int movement_increment_current;
         position.y += movement_increment;
         updatePosition(mAPI);
-        for (int i = 0; i < mAPI->grtGom()->go_vector.size(); i++) {
-            if (mAPI->grtGom()->go_vector.at(i).get() != this)
+        for (int i = 0; i < mAPI->gameObjectManager.get()->go_vector.size(); i++) {
+            if (mAPI->gameObjectManager.get()->go_vector.at(i).get() != this)
             {
-                found = mAPI->grtGom()->go_vector.at(i)->getBounds().intersects(getGlobalBounds());
+                found = mAPI->gameObjectManager.get()->go_vector.at(i)->getBounds().intersects(getGlobalBounds());
                 if (found)
                 {
-                    collide = mAPI->grtGom()->go_vector.at(i)->collide(this);
+                    collide = mAPI->gameObjectManager.get()->go_vector.at(i)->collide(this);
                     if (collide)
                     {
                         position.y -= movement_increment;
 
                         updatePosition(mAPI);
 
-                        movement_increment_current = mAPI->grtGom()->go_vector.at(i)->getBounds().top - (this->getBounds().top + this->getBounds().height);
+                        movement_increment_current = mAPI->gameObjectManager.get()->go_vector.at(i)->getBounds().top - (this->getBounds().top + this->getBounds().height);
 
                         position.y += movement_increment_current;
                     }
@@ -88,19 +88,19 @@ void player::movement(modAPI* mAPI)
         int movement_increment_current;
         position.x -= movement_increment;
         updatePosition(mAPI);
-        for (int i = 0; i < mAPI->grtGom()->go_vector.size(); i++) {
-            if (mAPI->grtGom()->go_vector.at(i).get() != this)
+        for (int i = 0; i < mAPI->gameObjectManager.get()->go_vector.size(); i++) {
+            if (mAPI->gameObjectManager.get()->go_vector.at(i).get() != this)
             {
-                found = mAPI->grtGom()->go_vector.at(i)->getBounds().intersects(getGlobalBounds());
+                found = mAPI->gameObjectManager.get()->go_vector.at(i)->getBounds().intersects(getGlobalBounds());
                 if (found)
                 {
-                    collide = mAPI->grtGom()->go_vector.at(i)->collide(this);
+                    collide = mAPI->gameObjectManager.get()->go_vector.at(i)->collide(this);
                     if (collide) {
                         position.x += movement_increment;
 
                         updatePosition(mAPI);
 
-                        movement_increment_current =  this->getBounds().left - (mAPI->grtGom()->go_vector.at(i)->getBounds().left + mAPI->grtGom()->go_vector.at(i)->getBounds().width);
+                        movement_increment_current =  this->getBounds().left - (mAPI->gameObjectManager.get()->go_vector.at(i)->getBounds().left + mAPI->gameObjectManager.get()->go_vector.at(i)->getBounds().width);
 
                         position.x -= movement_increment_current;
                     }
@@ -113,20 +113,20 @@ void player::movement(modAPI* mAPI)
         int movement_increment_current;
         position.x += movement_increment;
         updatePosition(mAPI);
-        for (int i = 0; i < mAPI->grtGom()->go_vector.size(); i++) {
-            if (mAPI->grtGom()->go_vector.at(i).get() != this)
+        for (int i = 0; i < mAPI->gameObjectManager.get()->go_vector.size(); i++) {
+            if (mAPI->gameObjectManager.get()->go_vector.at(i).get() != this)
             {
-                found = mAPI->grtGom()->go_vector.at(i)->getBounds().intersects(getGlobalBounds());
+                found = mAPI->gameObjectManager.get()->go_vector.at(i)->getBounds().intersects(getGlobalBounds());
                 if (found)
                 {
-                    collide = mAPI->grtGom()->go_vector.at(i)->collide(this);
+                    collide = mAPI->gameObjectManager.get()->go_vector.at(i)->collide(this);
                     if (collide)
                     {
                         position.x -= movement_increment;
 
                         updatePosition(mAPI);
 
-                        movement_increment_current = mAPI->grtGom()->go_vector.at(i)->getBounds().left - (this->getBounds().left + this->getBounds().width);
+                        movement_increment_current = mAPI->gameObjectManager.get()->go_vector.at(i)->getBounds().left - (this->getBounds().left + this->getBounds().width);
 
                         position.x += movement_increment_current;
                     }

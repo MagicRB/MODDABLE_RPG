@@ -24,8 +24,10 @@ add_library(MAIN SHARED ${SOURCES})
 
 if(WIN32)
 	target_link_libraries(MAIN sfml-window-2 sfml-graphics-2 sfml-system-2 MODDING_API)
+	ADD_CUSTOM_COMMAND(TARGET MAIN POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy libMAIN.dll ../../GAME/run/Mods)
 elseif(UNIX)
 	target_link_libraries(MAIN sfml-window sfml-graphics sfml-system MODDING_API)
+	ADD_CUSTOM_COMMAND(TARGET MAIN POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy libMAIN.so ../../GAME/run/Mods)
 endif(WIN32)
 
-ADD_CUSTOM_COMMAND(TARGET MAIN POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy libMAIN.* ../../GAME/run/Mods)
+

@@ -23,11 +23,11 @@ int main()
 
 	sf::RenderWindow Window(sf::VideoMode(10*32*mapi.windowScale, 10*32/4*3*mapi.windowScale), "My Window");
 
-	mapi.sroGom(&gom);
-	mapi.sroTexm(&texm);
-	mapi.sroWindow(&Window);
-	mapi.sroView(&view);
-	mapi.sroEvent(&event);
+	mapi.gameObjectManager.set(&gom);
+	mapi.textureManager.set(&texm);
+	mapi.window.set(&Window);
+	mapi.view.set(&view);
+	mapi.event.set(&event);
 
 	Window.setView(view);
 	Window.setVerticalSyncEnabled(true);
@@ -40,14 +40,14 @@ int main()
 	while (Window.isOpen()) {
 		Window.pollEvent(event);
 
-		if (mapi.gorControl() == NULL) {
+		if (mapi.control_override.get() == NULL) {
 			if (event.type == sf::Event::Closed) {
 				Window.close();
 			} else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Q) {
 				Window.close();
 			}
 		} else {
-			mapi.gorControl()(&mapi, event);
+			mapi.control_override.get()(&mapi, event);
 		}
 
 		Window.clear();
