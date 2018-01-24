@@ -19,8 +19,6 @@ class modManager
 
     protected:
 
-        void (*init_mod)(void(*)());
-
     private:
 };
 #endif // MOD_MANAGER_H

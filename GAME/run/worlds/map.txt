@@ -1,14 +1,16 @@
-:TILE ST_WALL ; stone_wall ; true ; 1
+:TILE WALL_HORIZONTAL               ; wall_horizontal           ; true ; 1
+:TILE WALL_VERTICAL                 ; wall_vertical             ; true ; 1
+:TILE WALL_CORNER_BOTTOM_LEFT       ; wall_corner_bottom_left   ; true ; 1
+:TILE WALL_CORNER_BOTTOM_RIGHT      ; wall_corner_bottom_right  ; true ; 1
+:TILE WALL_CORNER_TOP_LEFT          ; wall_corner_top_left      ; true ; 1
+:TILE WALL_CORNER_TOP_RIGHT         ; wall_corner_top_right     ; true ; 1
 
-:MOD RPG_TEST_MOD
+:CREATE WALL_HORIZONTAL         ;  0 ; -1
+:CREATE WALL_HORIZONTAL         ;  0 ;  1
+:CREATE WALL_VERTICAL           ; -1 ;  0
+:CREATE WALL_VERTICAL           ;  1 ;  0
+:CREATE WALL_CORNER_BOTTOM_LEFT ; -1 ;  1
+:CREATE WALL_CORNER_BOTTOM_RIGHT;  1 ;  1
+:CREATE WALL_CORNER_TOP_LEFT    ; -1 ; -1
+:CREATE WALL_CORNER_TOP_RIGHT   ;  1 ; -1
 
-:CREATE ST_WALL ; 0 ; -1
-:CREATE ST_WALL ; 1 ; 0
-:CREATE ST_WALL ; -1 ; 0
-:CREATE ST_WALL ; 0 ; -2
-:CREATE ST_WALL ; 0 ; 0
-:CREATE ST_WALL ; 0 ; 3
-
-:DOOR 2 ; 0
-
-:CREATE ST_WALL ; 3 ; 0

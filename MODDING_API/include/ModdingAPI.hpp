@@ -69,8 +69,6 @@ class modAPI
 
     private:
 
-        std::function<void(modAPI*, sf::Event)> overrideControl;
-
 };
 
 

@@ -6,10 +6,8 @@
 #include <cmath>
 
 #include "player.hpp"
-#include "Tile.hpp"
 #include "door.hpp"
 
-std::map<std::string, Tile> tile_defs;
 bool mouse_left_pressed;
 
 player* pl;
@@ -58,8 +56,10 @@ void controller(modAPI* mAPI, sf::Event event)
 
     if (event.type == sf::Event::Closed) {
 		mAPI->window.get()->close();
+		exit(EXIT_SUCCESS);
 	} else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Q) {
 		mAPI->window.get()->close();
+		exit(EXIT_SUCCESS);
 	}
 }
 
@@ -80,20 +80,7 @@ void loadFromWorldLine(modAPI* mAPI, std::string line)
 
     std::vector<std::string> tokens = split(arguments.c_str(), ';');
 
-    if (operation == ":TILE") {
-    	tile_defs[tokens.at(0)] = Tile();
-    	mAPI->textureManager.get()->addNewTexture(tokens.at(1));
-    	mAPI->textureManager.get()->texture_map.at(tokens.at(1)).loadFromFile("Textures/" + tokens.at(1) + ".png");
-    	tile_defs.at(tokens.at(0)).setTexture(mAPI->textureManager.get()->texture_map.at(tokens.at(1)));
-        if (tokens.at(2) == "True" || tokens.at(2) == "true")
-            tile_defs.at(tokens.at(0)).collidable = true;
-        else
-            tile_defs.at(tokens.at(0)).collidable = false;
-    } else if (operation == ":CREATE") {
-    	mAPI->gameObjectManager.get()->go_vector.push_back(std::unique_ptr<gameObject>(new Tile(tile_defs.at(tokens.at(0)))));
-    	Tile* t = dynamic_cast<Tile*>(mAPI->gameObjectManager.get()->go_vector.at(mAPI->gameObjectManager.get()->go_vector.size() - 1).get());
-    	t->setTilePosition(atoi(tokens.at(1).c_str()), atoi(tokens.at(2).c_str()));
-    } else if (operation == ":DOOR") {
+    if (operation == ":DOOR") {
     	mAPI->gameObjectManager.get()->go_vector.push_back(std::unique_ptr<gameObject>(new door()));
     	door* d = dynamic_cast<door*>(mAPI->gameObjectManager.get()->go_vector.at(mAPI->gameObjectManager.get()->go_vector.size() - 1).get());
     	d->setTilePosition(atoi(tokens.at(0).c_str()), atoi(tokens.at(1).c_str()));

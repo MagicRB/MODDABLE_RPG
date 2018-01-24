@@ -50,17 +50,20 @@ int main()
 			mapi.control_override.get()(&mapi, event);
 		}
 
-		Window.clear();
-		if(gom.go_vector.size() != 0) {
-			for (unsigned int i = 0; i < gom.go_vector.size(); i++) {
-				gom.go_vector.at(i)->render(&Window);
-			}
-		}
+		if (Window.isOpen())
+        {
+            Window.clear();
+            if(gom.go_vector.size() != 0) {
+                for (unsigned int i = 0; i < gom.go_vector.size(); i++) {
+                    gom.go_vector.at(i)->render(&Window);
+                }
+            }
 
-		Window.display();
+            Window.display();
+        }
 	}
 
-	Window.close();
+    Window.close();
 
 	mm.closeAllMods();
 

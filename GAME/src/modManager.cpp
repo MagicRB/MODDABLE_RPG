@@ -41,10 +41,10 @@ void modManager::closeAllMods()
 {
     std::map<std::string, void*>::iterator it;
 
-    for ( it = mods.begin(); it != mods.end(); ++it )
-    {
+    //for ( it = mods.begin(); it != mods.end(); ++it )
+    //
         //dlclose(it->second);
-    }
+    //}
 
     //dlclose(mods.at("MAIN"));
 
