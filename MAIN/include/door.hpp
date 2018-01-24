@@ -11,10 +11,11 @@ class door : public gameObject, public sf::Sprite
 
         bool open = false;
 
-        virtual void render(sf::RenderWindow* Window);
-		virtual void interact(gameObject* igom);
-		virtual bool collide(gameObject* cgom);
-		virtual sf::FloatRect getBounds();
+        void render(sf::RenderWindow* Window);
+		void interact(gameObject* igom);
+		bool collide(gameObject* cgom);
+		sf::FloatRect getBounds();
+		void blockUpdate(gameObject* updater);
 
         void setTilePosition(float x, float y);
 
@@ -24,7 +25,7 @@ class door : public gameObject, public sf::Sprite
     protected:
 
     private:
-    
+
 };
 
 #endif // DOOR_H

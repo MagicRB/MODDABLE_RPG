@@ -26,6 +26,11 @@ void door::setTilePosition(float x, float y)
 	setPosition(x * 32, y * 32);
 }
 
+void door::blockUpdate(gameObject* updater)
+{
+
+}
+
 door::door()
 {
     setOrigin(16,16);

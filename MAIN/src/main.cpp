@@ -7,6 +7,7 @@
 
 #include "player.hpp"
 #include "door.hpp"
+#include "generic_wall.hpp"
 
 bool mouse_left_pressed;
 
@@ -87,6 +88,14 @@ void loadFromWorldLine(modAPI* mAPI, std::string line)
         mAPI->textureManager.get()->addNewTexture("door");
     	mAPI->textureManager.get()->texture_map.at("door").loadFromFile("Textures/door.png");
     	d->setTexture(mAPI->textureManager.get()->texture_map.at("door"));
+    } else if (operation == ":GENERIC_WALL") {
+    	mAPI->gameObjectManager.get()->go_vector.push_back(std::unique_ptr<gameObject>(new generic_wall()));
+    	generic_wall* w = dynamic_cast<generic_wall*>(mAPI->gameObjectManager.get()->go_vector.at(mAPI->gameObjectManager.get()->go_vector.size() - 1).get());
+    	w->setTilePosition(atoi(tokens.at(0).c_str()), atoi(tokens.at(1).c_str()));
+        mAPI->textureManager.get()->addNewTexture("wall_vertical");
+    	mAPI->textureManager.get()->texture_map.at("wall_vertical").loadFromFile("Textures/wall_vertical.png");
+    	w->setTexture(mAPI->textureManager.get()->texture_map.at("wall_vertical"));
+    	w->blockUpdate(NULL);
     }
 }
 

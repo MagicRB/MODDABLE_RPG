@@ -22,6 +22,11 @@ sf::FloatRect player::getBounds()
     return getGlobalBounds();
 }
 
+void player::blockUpdate(gameObject* updater)
+{
+
+}
+
 void player::updatePosition(modAPI* mAPI)
 {
     mAPI->view.get()->setCenter(sf::Vector2f(position.x, position.y));
@@ -140,7 +145,7 @@ void player::movement(modAPI* mAPI)
 player::player(modAPI* mAPI)
 {
     setOrigin(sf::Vector2f(16, 16));
-    texture.loadFromFile("Textures/stone_wall.png");
+    texture.loadFromFile("Textures/wall_horizontal.png");
     setTexture(texture);
     setScale(sf::Vector2f(0.8, 0.8));
     position.y += 64;
