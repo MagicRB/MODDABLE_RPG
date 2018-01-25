@@ -33,7 +33,7 @@ void door::blockUpdate(gameObject* updater)
 
 door::door()
 {
-    setOrigin(16,16);
+    setOrigin(0,0);
 }
 
 door::~door()

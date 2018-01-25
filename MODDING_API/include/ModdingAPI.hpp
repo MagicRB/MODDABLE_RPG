@@ -4,6 +4,7 @@
 #include <functional>
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 #include "TextureManager.hpp"
 #include "goManager.hpp"
@@ -46,6 +47,22 @@ public:
     int version_minor;
 };
 
+struct chunk {
+public:
+    std::array<std::array<gameObject*, 64>, 64> objects;
+};
+
+template <class T>
+struct chunkified_pos {
+public:
+    int chunk_x;
+    int chunk_y;
+    int x;
+    int y;
+};
+
+chunkified_pos<int> world_to_chunk(int px, int py);
+
 class modAPI
 {
     public:
@@ -62,6 +79,8 @@ class modAPI
         int windowScale = 2;
 
         std::map<unsigned short int, std::function<void(modAPI*)>> keyBindMap;
+
+        std::map<std::pair<int, int>, chunk> chunks;
 
         modAPI();
         ~modAPI();

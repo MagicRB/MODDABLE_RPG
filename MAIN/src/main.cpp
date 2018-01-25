@@ -5,6 +5,7 @@
 
 #include <cmath>
 
+#include <iomanip>
 #include "player.hpp"
 #include "door.hpp"
 #include "generic_wall.hpp"
@@ -89,12 +90,24 @@ void loadFromWorldLine(modAPI* mAPI, std::string line)
     	mAPI->textureManager.get()->texture_map.at("door").loadFromFile("Textures/door.png");
     	d->setTexture(mAPI->textureManager.get()->texture_map.at("door"));
     } else if (operation == ":GENERIC_WALL") {
-    	mAPI->gameObjectManager.get()->go_vector.push_back(std::unique_ptr<gameObject>(new generic_wall()));
+    	mAPI->gameObjectManager.get()->go_vector.push_back(std::unique_ptr<gameObject>(new generic_wall(mAPI, atoi(tokens.at(0).c_str()), atoi(tokens.at(1).c_str()))));
     	generic_wall* w = dynamic_cast<generic_wall*>(mAPI->gameObjectManager.get()->go_vector.at(mAPI->gameObjectManager.get()->go_vector.size() - 1).get());
-    	w->setTilePosition(atoi(tokens.at(0).c_str()), atoi(tokens.at(1).c_str()));
-        mAPI->textureManager.get()->addNewTexture("wall_vertical");
-    	mAPI->textureManager.get()->texture_map.at("wall_vertical").loadFromFile("Textures/wall_vertical.png");
-    	w->setTexture(mAPI->textureManager.get()->texture_map.at("wall_vertical"));
+
+        w->mAPI = mAPI;
+
+    	if (mAPI->textureManager.get()->addNewTexture("wall_vertical")) { mAPI->textureManager.get()->texture_map.at("wall_vertical").loadFromFile("Textures/wall_vertical.png"); }
+    	if (mAPI->textureManager.get()->addNewTexture("wall_horizontal")) { mAPI->textureManager.get()->texture_map.at("wall_horizontal").loadFromFile("Textures/wall_horizontal.png"); }
+    	if (mAPI->textureManager.get()->addNewTexture("wall_corner_bottom_left")) { mAPI->textureManager.get()->texture_map.at("wall_corner_bottom_left").loadFromFile("Textures/wall_corner_bottom_left.png"); }
+    	if (mAPI->textureManager.get()->addNewTexture("wall_corner_bottom_right")) { mAPI->textureManager.get()->texture_map.at("wall_corner_bottom_right").loadFromFile("Textures/wall_corner_bottom_right.png"); }
+    	if (mAPI->textureManager.get()->addNewTexture("wall_corner_top_left")) { mAPI->textureManager.get()->texture_map.at("wall_corner_top_left").loadFromFile("Textures/wall_corner_top_left.png"); }
+    	if (mAPI->textureManager.get()->addNewTexture("wall_corner_top_right")) { mAPI->textureManager.get()->texture_map.at("wall_corner_top_right").loadFromFile("Textures/wall_corner_top_right.png"); }
+    	if (mAPI->textureManager.get()->addNewTexture("wall_t_left")) { mAPI->textureManager.get()->texture_map.at("wall_t_left").loadFromFile("Textures/wall_t_left.png"); }
+    	if (mAPI->textureManager.get()->addNewTexture("wall_t_right")) { mAPI->textureManager.get()->texture_map.at("wall_t_right").loadFromFile("Textures/wall_t_right.png"); }
+    	if (mAPI->textureManager.get()->addNewTexture("wall_t_top")) { mAPI->textureManager.get()->texture_map.at("wall_t_top").loadFromFile("Textures/wall_t_top.png"); }
+    	if (mAPI->textureManager.get()->addNewTexture("wall_t_bottom")) { mAPI->textureManager.get()->texture_map.at("wall_t_bottom").loadFromFile("Textures/wall_t_bottom.png"); }
+    	if (mAPI->textureManager.get()->addNewTexture("wall_pillar")) { mAPI->textureManager.get()->texture_map.at("wall_pillar").loadFromFile("Textures/wall_pillar.png"); }
+    	if (mAPI->textureManager.get()->addNewTexture("wall_cross")) { mAPI->textureManager.get()->texture_map.at("wall_cross").loadFromFile("Textures/wall_cross.png"); }
+
     	w->blockUpdate(NULL);
     }
 }
