@@ -63,8 +63,8 @@ int main()
                 for (int y = ch.chunk_y - 1; y <= ch.chunk_y + 1; y++) {
                     for (int px = 0; px < 64; px++) {
                         for (int py = 0; py < 64; py++) {
-                            if (mapi.chunks.count(std::pair<int, int>(x, y)) != 0) {
-                                if (mapi.chunks[std::pair<int, int>(x, y)].objects[px][py] != NULL) { mapi.chunks.at(std::pair<int, int>(x, y)).objects[px][py]->render(mapi.window.get()); }
+                            if (mapi.chunks.count(std::pair<int, int>(x, y)) != 0 && mapi.chunks[std::pair<int, int>(x, y)].objects[px][py] != NULL) {
+                                mapi.chunks.at(std::pair<int, int>(x, y)).objects[px][py]->render(mapi.window.get());
                             }
                         }
                     }

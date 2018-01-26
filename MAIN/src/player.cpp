@@ -42,21 +42,27 @@ void player::movement(modAPI* mAPI)
         int movement_increment_current;
         position.y -= movement_increment;
         updatePosition(mAPI);
-        for (int i = 0; i < mAPI->gameObjectManager.get()->go_vector.size(); i++) {
-            if (mAPI->gameObjectManager.get()->go_vector.at(i).get() != this)
-            {
-                found = mAPI->gameObjectManager.get()->go_vector.at(i)->getBounds().intersects(getGlobalBounds());
-                if (found)
-                {
-                    collide = mAPI->gameObjectManager.get()->go_vector.at(i)->collide(this);
-                    if (collide) {
-                        position.y += movement_increment;
+        chunkified_pos<int> ch = world_to_chunk(mAPI->view.get()->getCenter().x / 32, mAPI->view.get()->getCenter().y / 32);
+        for (int x = ch.chunk_x - 1; x <= ch.chunk_x + 1; x++) {
+            for (int y = ch.chunk_y - 1; y <= ch.chunk_y + 1; y++) {
+                for (int px = 0; px < 64; px++) {
+                    for (int py = 0; py < 64; py++) {
+                        if (mAPI->chunks.count(std::pair<int, int>(x, y)) != 0 && mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py] != NULL && mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py] != this) {
+                            found = mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py]->getBounds().intersects(getGlobalBounds());
+                            if (found)
+                            {
+                                collide = mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py]->collide(this);
+                                if (collide) {
+                                    position.y += movement_increment;
 
-                        updatePosition(mAPI);
+                                    updatePosition(mAPI);
 
-                        movement_increment_current = this->getBounds().top - (mAPI->gameObjectManager.get()->go_vector.at(i)->getBounds().top + mAPI->gameObjectManager.get()->go_vector.at(i)->getBounds().height);
+                                    movement_increment_current = this->getBounds().top - (mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py]->getBounds().top + mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py]->getBounds().height);
 
-                        position.y -= movement_increment_current;
+                                    position.y -= movement_increment_current;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -67,22 +73,27 @@ void player::movement(modAPI* mAPI)
         int movement_increment_current;
         position.y += movement_increment;
         updatePosition(mAPI);
-        for (int i = 0; i < mAPI->gameObjectManager.get()->go_vector.size(); i++) {
-            if (mAPI->gameObjectManager.get()->go_vector.at(i).get() != this)
-            {
-                found = mAPI->gameObjectManager.get()->go_vector.at(i)->getBounds().intersects(getGlobalBounds());
-                if (found)
-                {
-                    collide = mAPI->gameObjectManager.get()->go_vector.at(i)->collide(this);
-                    if (collide)
-                    {
-                        position.y -= movement_increment;
+        chunkified_pos<int> ch = world_to_chunk(mAPI->view.get()->getCenter().x / 32, mAPI->view.get()->getCenter().y / 32);
+        for (int x = ch.chunk_x - 1; x <= ch.chunk_x + 1; x++) {
+            for (int y = ch.chunk_y - 1; y <= ch.chunk_y + 1; y++) {
+                for (int px = 0; px < 64; px++) {
+                    for (int py = 0; py < 64; py++) {
+                        if (mAPI->chunks.count(std::pair<int, int>(x, y)) != 0 && mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py] != NULL && mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py] != this) {
+                            found = mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py]->getBounds().intersects(getGlobalBounds());
+                            if (found)
+                            {
+                                collide = mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py]->collide(this);
+                                if (collide) {
+                                    position.y -= movement_increment;
 
-                        updatePosition(mAPI);
+                                    updatePosition(mAPI);
 
-                        movement_increment_current = mAPI->gameObjectManager.get()->go_vector.at(i)->getBounds().top - (this->getBounds().top + this->getBounds().height);
+                                    movement_increment_current = mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py]->getBounds().top - (this->getBounds().top + this->getBounds().height);
 
-                        position.y += movement_increment_current;
+                                    position.y += movement_increment_current;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -93,21 +104,27 @@ void player::movement(modAPI* mAPI)
         int movement_increment_current;
         position.x -= movement_increment;
         updatePosition(mAPI);
-        for (int i = 0; i < mAPI->gameObjectManager.get()->go_vector.size(); i++) {
-            if (mAPI->gameObjectManager.get()->go_vector.at(i).get() != this)
-            {
-                found = mAPI->gameObjectManager.get()->go_vector.at(i)->getBounds().intersects(getGlobalBounds());
-                if (found)
-                {
-                    collide = mAPI->gameObjectManager.get()->go_vector.at(i)->collide(this);
-                    if (collide) {
-                        position.x += movement_increment;
+        chunkified_pos<int> ch = world_to_chunk(mAPI->view.get()->getCenter().x / 32, mAPI->view.get()->getCenter().y / 32);
+        for (int x = ch.chunk_x - 1; x <= ch.chunk_x + 1; x++) {
+            for (int y = ch.chunk_y - 1; y <= ch.chunk_y + 1; y++) {
+                for (int px = 0; px < 64; px++) {
+                    for (int py = 0; py < 64; py++) {
+                        if (mAPI->chunks.count(std::pair<int, int>(x, y)) != 0 && mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py] != NULL && mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py] != this) {
+                            found = mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py]->getBounds().intersects(getGlobalBounds());
+                            if (found)
+                            {
+                                collide = mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py]->collide(this);
+                                if (collide) {
+                                    position.x += movement_increment;
 
-                        updatePosition(mAPI);
+                                    updatePosition(mAPI);
 
-                        movement_increment_current =  this->getBounds().left - (mAPI->gameObjectManager.get()->go_vector.at(i)->getBounds().left + mAPI->gameObjectManager.get()->go_vector.at(i)->getBounds().width);
+                                    movement_increment_current =  this->getBounds().left - (mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py]->getBounds().left + mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py]->getBounds().width);
 
-                        position.x -= movement_increment_current;
+                                    position.x -= movement_increment_current;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -118,22 +135,27 @@ void player::movement(modAPI* mAPI)
         int movement_increment_current;
         position.x += movement_increment;
         updatePosition(mAPI);
-        for (int i = 0; i < mAPI->gameObjectManager.get()->go_vector.size(); i++) {
-            if (mAPI->gameObjectManager.get()->go_vector.at(i).get() != this)
-            {
-                found = mAPI->gameObjectManager.get()->go_vector.at(i)->getBounds().intersects(getGlobalBounds());
-                if (found)
-                {
-                    collide = mAPI->gameObjectManager.get()->go_vector.at(i)->collide(this);
-                    if (collide)
-                    {
-                        position.x -= movement_increment;
+        chunkified_pos<int> ch = world_to_chunk(mAPI->view.get()->getCenter().x / 32, mAPI->view.get()->getCenter().y / 32);
+        for (int x = ch.chunk_x - 1; x <= ch.chunk_x + 1; x++) {
+            for (int y = ch.chunk_y - 1; y <= ch.chunk_y + 1; y++) {
+                for (int px = 0; px < 64; px++) {
+                    for (int py = 0; py < 64; py++) {
+                        if (mAPI->chunks.count(std::pair<int, int>(x, y)) != 0 && mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py] != NULL && mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py] != this) {
+                            found = mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py]->getBounds().intersects(getGlobalBounds());
+                            if (found)
+                            {
+                                collide = mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py]->collide(this);
+                                if (collide) {
+                                    position.x -= movement_increment;
 
-                        updatePosition(mAPI);
+                                    updatePosition(mAPI);
 
-                        movement_increment_current = mAPI->gameObjectManager.get()->go_vector.at(i)->getBounds().left - (this->getBounds().left + this->getBounds().width);
+                                    movement_increment_current = mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py]->getBounds().left - (this->getBounds().left + this->getBounds().width);
 
-                        position.x += movement_increment_current;
+                                    position.x += movement_increment_current;
+                                }
+                            }
+                        }
                     }
                 }
             }
