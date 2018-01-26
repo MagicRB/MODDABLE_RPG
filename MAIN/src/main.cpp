@@ -90,8 +90,8 @@ void loadFromWorldLine(modAPI* mAPI, std::string line)
     	mAPI->textureManager.get()->texture_map.at("door").loadFromFile("Textures/door.png");
     	d->setTexture(mAPI->textureManager.get()->texture_map.at("door"));
     } else if (operation == ":GENERIC_WALL") {
-    	mAPI->gameObjectManager.get()->go_vector.push_back(std::unique_ptr<gameObject>(new generic_wall(mAPI, atoi(tokens.at(0).c_str()), atoi(tokens.at(1).c_str()))));
-    	generic_wall* w = dynamic_cast<generic_wall*>(mAPI->gameObjectManager.get()->go_vector.at(mAPI->gameObjectManager.get()->go_vector.size() - 1).get());
+
+    	generic_wall* w = new generic_wall(mAPI, atoi(tokens.at(0).c_str()), atoi(tokens.at(1).c_str()));
 
         w->mAPI = mAPI;
 

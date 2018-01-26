@@ -58,6 +58,18 @@ int main()
                     gom.go_vector.at(i)->render(&Window);
                 }
             }
+            chunkified_pos<int> ch = world_to_chunk(mapi.view.get()->getCenter().x / 32, mapi.view.get()->getCenter().y / 32);
+            for (int x = ch.chunk_x - 1; x <= ch.chunk_x + 1; x++) {
+                for (int y = ch.chunk_y - 1; y <= ch.chunk_y + 1; y++) {
+                    for (int px = 0; px < 64; px++) {
+                        for (int py = 0; py < 64; py++) {
+                            if (mapi.chunks.count(std::pair<int, int>(x, y)) != 0) {
+                                if (mapi.chunks[std::pair<int, int>(x, y)].objects[px][py] != NULL) { mapi.chunks.at(std::pair<int, int>(x, y)).objects[px][py]->render(mapi.window.get()); }
+                            }
+                        }
+                    }
+                }
+            }
 
             Window.display();
         }
