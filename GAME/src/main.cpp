@@ -31,7 +31,7 @@ int main()
 
 	Window.setView(view);
 	Window.setVerticalSyncEnabled(true);
-	Window.setFramerateLimit(60);
+	//Window.setFramerateLimit(120);
 
 	mm.loadMod("libMAIN", "Mods/", &mapi);
 
