@@ -79,6 +79,10 @@ void generic_wall::blockUpdate(gameObject* updater)
     else if (bottom && !top && left && right) { setTexture(mAPI->textureManager.get()->texture_map.at("wall_t_top")); }
     else if (!bottom && top && left && right) { setTexture(mAPI->textureManager.get()->texture_map.at("wall_t_bottom")); }
     else if (bottom && top && left && right) { setTexture(mAPI->textureManager.get()->texture_map.at("wall_cross")); }
+    else if (!bottom && !top && !left && right) { setTexture(mAPI->textureManager.get()->texture_map.at("wall_end_left")); }
+    else if (!bottom && !top && left && !right) { setTexture(mAPI->textureManager.get()->texture_map.at("wall_end_right")); }
+    else if (!bottom && top && !left && !right) { setTexture(mAPI->textureManager.get()->texture_map.at("wall_end_bottom")); }
+    else if (bottom && !top && !left && !right) { setTexture(mAPI->textureManager.get()->texture_map.at("wall_end_top")); }
     else { setTexture(mAPI->textureManager.get()->texture_map.at("wall_pillar")); }
 }
 

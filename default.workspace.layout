@@ -2,5 +2,5 @@
 <CodeBlocks_workspace_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveProject path="GAME/build/GAME.cbp" />
-	<PreferredTarget name="GAME" />
+	<PreferredTarget name="MAIN" />
 </CodeBlocks_workspace_layout_file>

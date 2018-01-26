@@ -37,7 +37,7 @@ void controller(modAPI* mAPI, sf::Event event)
         mAPI->keyBindMap[event.key.code](mAPI);
     }
 
-    if (mAPI->inputE.get_event_vector().size() != 0) {
+    if (mAPI->inputE.get_event_vector().size() != 0 && mAPI->window.get()->hasFocus()) {
         for (unsigned int i = 0; i < mAPI->inputE.get_event_vector().size(); i++) {
             mAPI->inputE.get_event_vector().at(i)(mAPI);
         }
@@ -107,6 +107,10 @@ void loadFromWorldLine(modAPI* mAPI, std::string line)
     	if (mAPI->textureManager.get()->addNewTexture("wall_t_bottom")) { mAPI->textureManager.get()->texture_map.at("wall_t_bottom").loadFromFile("Textures/wall_t_bottom.png"); }
     	if (mAPI->textureManager.get()->addNewTexture("wall_pillar")) { mAPI->textureManager.get()->texture_map.at("wall_pillar").loadFromFile("Textures/wall_pillar.png"); }
     	if (mAPI->textureManager.get()->addNewTexture("wall_cross")) { mAPI->textureManager.get()->texture_map.at("wall_cross").loadFromFile("Textures/wall_cross.png"); }
+    	if (mAPI->textureManager.get()->addNewTexture("wall_end_left")) { mAPI->textureManager.get()->texture_map.at("wall_end_left").loadFromFile("Textures/wall_end_left.png"); }
+    	if (mAPI->textureManager.get()->addNewTexture("wall_end_right")) { mAPI->textureManager.get()->texture_map.at("wall_end_right").loadFromFile("Textures/wall_end_right.png"); }
+    	if (mAPI->textureManager.get()->addNewTexture("wall_end_top")) { mAPI->textureManager.get()->texture_map.at("wall_end_top").loadFromFile("Textures/wall_end_top.png"); }
+    	if (mAPI->textureManager.get()->addNewTexture("wall_end_bottom")) { mAPI->textureManager.get()->texture_map.at("wall_end_bottom").loadFromFile("Textures/wall_end_bottom.png"); }
 
     	w->blockUpdate(NULL);
     }
