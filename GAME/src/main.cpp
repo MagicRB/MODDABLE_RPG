@@ -29,6 +29,8 @@ int main()
 	mapi.view.set(&view);
 	mapi.event.set(&event);
 
+	mapi.render_distance = 1;
+
 	Window.setView(view);
 	Window.setVerticalSyncEnabled(true);
 	//Window.setFramerateLimit(120);
@@ -59,8 +61,8 @@ int main()
                 }
             }
             chunkified_pos<int> ch = world_to_chunk(mapi.view.get()->getCenter().x / 32, mapi.view.get()->getCenter().y / 32);
-            for (int x = ch.chunk_x - 1; x <= ch.chunk_x + 1; x++) {
-                for (int y = ch.chunk_y - 1; y <= ch.chunk_y + 1; y++) {
+            for (int x = ch.chunk_x - mapi.render_distance; x <= ch.chunk_x + mapi.render_distance; x++) {
+                for (int y = ch.chunk_y - mapi.render_distance; y <= ch.chunk_y + mapi.render_distance; y++) {
                     for (int px = 0; px < 64; px++) {
                         for (int py = 0; py < 64; py++) {
                             if (mapi.chunks.count(std::pair<int, int>(x, y)) != 0 && mapi.chunks[std::pair<int, int>(x, y)].objects[px][py] != NULL) {

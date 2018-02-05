@@ -37,33 +37,33 @@ void player::updatePosition(modAPI* mAPI)
 void player::movement(modAPI* mAPI)
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
-        bool collide;
-        bool found;
-        int movement_increment_current;
         position.y -= movement_increment;
+
         updatePosition(mAPI);
+
         chunkified_pos<int> ch = world_to_chunk(mAPI->view.get()->getCenter().x / 32, mAPI->view.get()->getCenter().y / 32);
-        for (int x = ch.chunk_x - 1; x <= ch.chunk_x + 1; x++) {
-            for (int y = ch.chunk_y - 1; y <= ch.chunk_y + 1; y++) {
-                for (int px = 0; px < 64; px++) {
-                    for (int py = 0; py < 64; py++) {
-                        if (mAPI->chunks.count(std::pair<int, int>(x, y)) != 0 && mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py] != NULL && mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py] != this) {
-                            found = mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py]->getBounds().intersects(getGlobalBounds());
-                            if (found)
-                            {
-                                collide = mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py]->collide(this);
-                                if (collide) {
-                                    position.y += movement_increment;
 
-                                    updatePosition(mAPI);
+        for (int x = ch.chunk_x - 1; x <= ch.chunk_x + 1; x++)
+        for (int y = ch.chunk_y - 1; y <= ch.chunk_y + 1; y++)
+        for (int px = 0; px < 64; px++)
+        for (int py = 0; py < 64; py++)
+        {
+            if (mAPI->chunks.count({x, y}) != 0)
+            {
+                auto& chunk = mAPI->chunks[{x, y}];
+                auto* object = chunk.objects[px][py];
 
-                                    movement_increment_current = this->getBounds().top - (mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py]->getBounds().top + mAPI->chunks[std::pair<int, int>(x, y)].objects[px][py]->getBounds().height);
+                if (object && object != this
+                    && object->getBounds().intersects(getGlobalBounds()) // is found
+                    && object->collide(this) // collides
+                )
+                {
+                    position.y += movement_increment;
 
-                                    position.y -= movement_increment_current;
-                                }
-                            }
-                        }
-                    }
+                    updatePosition(mAPI);
+
+                    int movement_increment_current = this->getBounds().top - (object->getBounds().top + object->getBounds().height);
+                    position.y -= movement_increment_current;
                 }
             }
         }

@@ -82,6 +82,8 @@ class modAPI
 
         std::map<std::pair<int, int>, chunk> chunks;
 
+        int render_distance;
+
         modAPI();
         ~modAPI();
     protected:
