@@ -14,6 +14,7 @@ class rigid_body
     public:
 
         virtual void on_collided(modAPI* mAPI, gameObject* colliding_game_object) = 0;
+        virtual sf::FloatRect get_previous_bounds() = 0;
 };
 
 #endif //RIGID_BODY_H

@@ -14,6 +14,7 @@ class player : public gameObject, public rigid_body, public sf::Sprite
         bool collide(gameObject* cgom);
         sf::FloatRect getBounds();
         void blockUpdate(gameObject* updater);
+        sf::FloatRect get_previous_bounds();
 
         void on_collided(modAPI* mAPI, gameObject* colliding_game_object);
 
@@ -22,6 +23,8 @@ class player : public gameObject, public rigid_body, public sf::Sprite
         void movement(modAPI* mAPI);
 
         int movement_increment = 3;
+
+        sf::FloatRect previous_bounds;
 
         player(modAPI* mAPI);
         ~player();

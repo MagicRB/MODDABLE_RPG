@@ -30,48 +30,34 @@ void player::blockUpdate(gameObject* updater)
 
 void player::on_collided(modAPI* mAPI, gameObject* colliding_game_object)
 {
-    int x1;
-    int x2;
-    int y1;
-    int y2;
-    int x;
-    int y;
+    int dirX = getBounds().left - get_previous_bounds().left;
+    int dirY = getBounds().top - get_previous_bounds().top;
+
+    if (dirX > 0) {
+
+        position.x -= getBounds().left + getBounds().width - colliding_game_object->getBounds().left;
+
+    } else if (dirX < 0) {
 
 
-    x1 = colliding_game_object->getBounds().left +  colliding_game_object->getBounds().width - this->getBounds().left;
-    x2 = this->getBounds().left +  this->getBounds().width - colliding_game_object->getBounds().left;
 
-    y1 = colliding_game_object->getBounds().top +  colliding_game_object->getBounds().height - this->getBounds().top;
-    y2 = this->getBounds().top +  this->getBounds().height - colliding_game_object->getBounds().top;
-
-    if (abs(x1) < abs(x2))
-        x = x1;
-    else if (abs(x2) < abs(x1))
-        x = x2;
-
-    if (abs(y1) < abs(y2))
-        y = y1;
-    else if (abs(y2) < abs(y1))
-        y = y2;
+    } if (dirY > 0 ) {
 
 
-//    if (abs(x) < abs(y))
-//        this->position.x += x;
-//    else if (abs(y) < abs(x))
-//        this->position.y += y;
-//    else {
-//        this->position.y += y;
-//        this->position.x += x;
-//    }
 
-//    std::cout << x1 << ";" << x2 << "    " << y1 << ";" << y2 << std::endl;
-    std::cout << x << "    " << y << std::endl;
+    } else if (dirY < 0) {
+
+
+
+    }
 
     updatePosition(mAPI);
 }
 
 void player::updatePosition(modAPI* mAPI)
 {
+    previous_bounds = getGlobalBounds();
+
     mAPI->view.get()->setCenter(sf::Vector2f(position.x, position.y));
     setPosition(position.x, position.y);
     mAPI->window.get()->setView(*mAPI->view.get());
@@ -89,6 +75,11 @@ void player::movement(modAPI* mAPI)
         position.x += movement_increment;
     }
     updatePosition(mAPI);
+}
+
+sf::FloatRect player::get_previous_bounds()
+{
+    return previous_bounds;
 }
 
 player::player(modAPI* mAPI)
