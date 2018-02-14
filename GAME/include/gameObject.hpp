@@ -13,7 +13,6 @@ class gameObject
         virtual sf::FloatRect getBounds() = 0;
         virtual void render(sf::RenderWindow* Window) = 0;
         virtual void interact(gameObject* igom) = 0;
-        virtual bool collide(gameObject* cgom) = 0;
         virtual void blockUpdate(gameObject* updater) = 0;
 };
 

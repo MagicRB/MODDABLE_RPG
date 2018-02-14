@@ -123,4 +123,5 @@ void initializeMod(modAPI* mAPI)
 
     pl = new player(mAPI);
     mAPI->gameObjectManager.get()->go_vector.push_back(std::unique_ptr<gameObject>(pl));
+    mAPI->rigid_body_vector.push_back(pl);
 }

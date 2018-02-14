@@ -1,10 +1,11 @@
 #include "gameObject.hpp"
 #include "ModdingAPI.hpp"
+#include "rigidBody.hpp"
 
 #include "SFML/Graphics.hpp"
 
 
-class player : public gameObject, public sf::Sprite
+class player : public gameObject, public rigid_body, public sf::Sprite
 {
     public:
 
@@ -13,6 +14,8 @@ class player : public gameObject, public sf::Sprite
         bool collide(gameObject* cgom);
         sf::FloatRect getBounds();
         void blockUpdate(gameObject* updater);
+
+        void on_collided(modAPI* mAPI, gameObject* colliding_game_object);
 
         void updatePosition(modAPI* mAPI);
 

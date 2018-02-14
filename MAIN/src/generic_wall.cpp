@@ -11,6 +11,7 @@ generic_wall::generic_wall(modAPI* mAPI, int x, int y)
     ch = world_to_chunk(x, y);
 
     mAPI->chunks[std::pair<int, int>(ch.chunk_x, ch.chunk_y)].objects[ch.x][ch.y] = this;
+    mAPI->chunks[std::pair<int, int>(ch.chunk_x, ch.chunk_y)].collidable_objects[ch.x][ch.y] = this;
 
     setTilePosition(x, y);
 
@@ -89,4 +90,9 @@ void generic_wall::blockUpdate(gameObject* updater)
 void generic_wall::setTilePosition(float x, float y)
 {
     setPosition(x * 32, y * 32);
+}
+
+void generic_wall::on_collide_with(gameObject* collingGameObject)
+{
+
 }

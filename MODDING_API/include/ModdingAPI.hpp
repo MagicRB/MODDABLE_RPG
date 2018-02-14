@@ -8,6 +8,9 @@
 
 #include "TextureManager.hpp"
 #include "goManager.hpp"
+#include "rigidBody.hpp"
+
+class rigid_body;
 
 template <class func>
 struct event_handler {
@@ -50,6 +53,7 @@ public:
 struct chunk {
 public:
     std::array<std::array<gameObject*, 64>, 64> objects;
+    std::array<std::array<gameObject*, 64>, 64> collidable_objects;
 };
 
 template <class T>
@@ -72,6 +76,7 @@ class modAPI
         reference_holder<sf::View*> view;
         reference_holder<sf::Event*> event;
         reference_holder<std::function<void(modAPI*, sf::Event)>> control_override;
+        reference_holder<std::function<void(modAPI*)>> collision_handler_override;
 
         event_handler<std::function<void(modAPI*, std::string)>> worldFileEntryE;
         event_handler<std::function<void(modAPI*)>> inputE;
@@ -81,6 +86,8 @@ class modAPI
         std::map<unsigned short int, std::function<void(modAPI*)>> keyBindMap;
 
         std::map<std::pair<int, int>, chunk> chunks;
+
+        std::vector<rigid_body*> rigid_body_vector;
 
         int render_distance;
 

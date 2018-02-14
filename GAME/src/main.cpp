@@ -7,6 +7,8 @@
 #include "goManager.hpp"
 #include "modManager.hpp"
 #include "ModdingAPI.hpp"
+#include "rigidBody.hpp"
+#include "collider.hpp"
 
 int main()
 {
@@ -50,6 +52,32 @@ int main()
 			}
 		} else {
 			mapi.control_override.get()(&mapi, event);
+		}
+
+		if (mapi.collision_handler_override.get() == NULL) {
+		    for (int i = 0; i < mapi.rigid_body_vector.size(); i++) {
+                gameObject* r = dynamic_cast<gameObject*>(mapi.rigid_body_vector.at(i));
+                chunkified_pos<int> ch = world_to_chunk(r->position.x / 32, r->position.y / 32);
+                for (int x = ch.chunk_x - 1; x <= ch.chunk_x + 1; x++) {
+                    for (int y = ch.chunk_y - 1; y <= ch.chunk_y + 1; y++) {
+                        for (int px = 0; px < 64; px++) {
+                            for (int py = 0; py < 64; py++) {
+                                if (mapi.chunks.count(std::pair<int, int>(x, y)) != 0 && mapi.chunks[std::pair<int, int>(x, y)].objects[px][py] != NULL) {
+                                    gameObject* c = mapi.chunks[std::pair<int, int>(x, y)].objects[px][py];
+                                    if (r->getBounds().intersects(mapi.chunks[std::pair<int, int>(x, y)].objects[px][py]->getBounds()))
+                                    {
+                                        mapi.rigid_body_vector.at(i)->on_collided(&mapi, c);
+                                        collider* col = dynamic_cast<collider*>(c);
+                                        col->on_collide_with(r);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+		} else {
+
 		}
 
 		if (Window.isOpen())

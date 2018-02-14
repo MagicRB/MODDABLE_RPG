@@ -4,8 +4,9 @@
 #include "ModdingAPI.hpp"
 
 #include "gameObject.hpp"
+#include "collider.hpp"
 
-class generic_wall : public gameObject, public sf::Sprite {
+class generic_wall : public gameObject, public collider, public sf::Sprite {
 public:
     generic_wall(modAPI* mAPI, int x, int y);
     ~generic_wall();
@@ -17,6 +18,8 @@ public:
     void interact(gameObject* igom);
     bool collide(gameObject* cgom);
     void blockUpdate(gameObject* updater);
+
+    void on_collide_with(gameObject* collingGameObject);
 
     void setTilePosition(float x, float y);
 protected:
